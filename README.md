@@ -93,3 +93,14 @@ nodemon
 ```
 node app.js
 ```
+## Verificar funcionamiento de WebAPI 
+- Para el testing de la WebAPI se usara la extension de Visual Studio Code **Thunder Client**, se debe instalarla
+- La prueba consiste en seleccionar el icono de la extension en la barra de la izquierda y pulsar el boton **New Request** 
+- Cuando aparece la ventana del request se debe configurar:
+    - La URL del recurso a donde se quiere acceder, por ejemplo: 
+    ```
+    localhost:3000/producto
+    ```
+    - El metodo HTTP a utilizar puede ser un GET, POST, PUT o DELETE (son los que usaremos)
+    - Si el metodo HTTP es un POST o PUT se debe configurar el **body** del request, en la parte inferior a la URL del request hay pestañas se debe seleccionar **body** y en la parte inferior se debe colocar el json correspondiente que se desea enviar a la aplicacion
+    - Por ultimo pulsar el boton **Send** y analizar el resultado del request a la derecha de la pantalla
