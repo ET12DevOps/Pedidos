@@ -1,53 +1,25 @@
+//importa dependencia de la biblioteca express
 import express, { json } from 'express'
+//importa dependencia de la biblioteca morgan
 import morgan from 'morgan'
-
+//importa archivo .env - variables de entorno
 require('dotenv').config()
+//importar el archivo usuarioRoutes del archivo producto.routes.js
+import productoRoutes from './routes/producto.routes'
 
-const port = process.env.PORT || 3000
+//crea la aplicacion 
 const app = express()
 
+//define un puerto en que va a escuchar pedidos
+const port = process.env.PORT || 3000
+
+//lee el body en formato json
 app.use(json())
+
+//imprime las acciones hacia cada endopoint en la terminal
 app.use(morgan('dev'))
 
-let productos = [
-    {
-        "productoId" : 1, 
-        "proveedorId": 10,
-        "categoriaId": 100,
-        "descripcion": "ATUN",
-        "precioUnitario": 500,
-        "existencia": 50
-    }
-]
-
-app.get('/producto', (request, response) => {
-    response.send(productos)
-})
-
-app.get('/producto/:id', (request, response) => {
-    let producto = productos.find(x => x.productoId == request.params.id)
-    response.send(producto)
-})
-
-app.post('/producto', (request, response) => {
-    let producto = request.body;
-    console.log(producto);
-    productos.push(producto)
-    response.send(productos)
-})
-
-app.delete('/producto/:id', (request, response) => {
-    let idProducto = request.params.id
-    let producto = productos.find(x => x.productoId == idProducto)
-    console.log(producto)
-
-    if (producto == null) {
-        response.status(404).send("No se encuentra el producto")
-        return
-    }
-    let indice = productos.indexOf(producto)
-    productos.splice(indice, 1)
-    response.send(productos)
-})
+//endpoints
+app.use(productoRoutes)
 
 app.listen(port)

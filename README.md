@@ -156,3 +156,50 @@ Para ejecutar el proyecto de ahora en mas se debe usar el siguiente comando
 ```
 npm run dev
 ```
+
+# Version 3
+
+- Crear el directorio **routes** en la raiz del proyecto
+- Dentro del directorio **routes** crear el archivo **producto.routes.js** 
+- Mover los endpoints del archivo **app.js** al archivo **producto.routes.js** 
+
+```js
+app.get('/producto', (request, response) => {
+    response.send(productos)
+})
+
+app.get('/producto/:id', (request, response) => {
+    let producto = productos.find(x => x.productoId == request.params.id)
+    response.send(producto)
+})
+
+app.post('/producto', (request, response) => {
+    let producto = request.body;
+    console.log(producto);
+    productos.push(producto)
+    response.send(productos)
+})
+
+app.delete('/producto/:id', (request, response) => {
+    let idProducto = request.params.id
+    let producto = productos.find(x => x.productoId == idProducto)
+    console.log(producto)
+
+    if (producto == null) {
+        response.status(404).send("No se encuentra el producto")
+        return
+    }
+    let indice = productos.indexOf(producto)
+    productos.splice(indice, 1)
+    response.send(productos)
+})
+```
+- En el archivo **producto.routes.js** reemplazar **app** por **router** (notar que los endpoints ya no se aplican sobre **app** sino sobre **router**) y agregar el **export default router** al final del archivo
+- En el archivo **app.js** importar el nuevo archivo **producto.router.js** 
+```js
+import productoRoutes from './routes/producto.routes'
+```
+y explicitar el uso de las **rutas** de los endpoints de productos
+```js
+app.use(productoRoutes)
+```
