@@ -5,14 +5,18 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon ./ --exec babel-node"
+    "dev": "nodemon ./ --exec babel-node",
+    "swagger-autogen": "node swagger.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "and": "^0.0.3",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "swagger-autogen": "^2.23.5",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.10",

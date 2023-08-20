@@ -7,6 +7,10 @@ require('dotenv').config()
 //importar el archivo usuarioRoutes del archivo producto.routes.js
 import productoRoutes from './routes/producto.routes'
 
+//configuracion de swagger
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+
 //crea la aplicacion 
 const app = express()
 
@@ -21,5 +25,7 @@ app.use(morgan('dev'))
 
 //endpoints
 app.use(productoRoutes)
+//endpoint para documentacion swagger
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.listen(port)

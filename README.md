@@ -211,3 +211,43 @@ app.use(productoRoutes)
 - Abstraer el comportamiento definido en el archivo **producto.routes.js** en un nuevo archivo **producto.controller.js** 
 - El objetivo detras de esto es la separacion de responsabilidades del router. Anteriormente el router era responsable de aceptar las peticiones HTTP y procesarlas. Ahora el router unicamente será encargado de aceptar las peticiones HTTP y el procesamiento se delegará en el controller
 - Desplazar el procesamiento del request HTTP a un nuevo método en el controller, y dicho método se debe llamar desde el router con la ruta correspondiente (ver cambios en los archivos **producto.routes.js** y **producto.controller.js**)
+
+# Version 5
+
+## Instalar y configurar **Swagger** en el proyecto
+
+```sh
+npm install swagger-autogen and swagger-ui-express
+```
+
+- Crear un archivo en la raiz del proyecto **swagger.js** con el siguiente contenido
+```js
+const swaggerAutogen = require('swagger-autogen')()
+const outputFile = './swagger_output.json'
+const endpointsFiles = ['./routers/personRouter.js'] //deben estar listado los routers separados por una coma
+swaggerAutogen(outputFile, endpointsFiles)
+```
+## Configurar el archivo **package.json** 
+- En la seccion **script** comando **swagger-autogen**
+```json
+"scripts": {
+    "start": "node app.js",
+    "dev": "nodemon ./ --exec babel-node",
+    "swagger-autogen": "node swagger.js"
+  },
+```
+
+## Configuracion **app.js**
+```js
+...
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+...
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+...
+```
+## Generacion archivo **swagger_output.json** 
+- Cada vez que se agregue un nuevo **controller** o **router** se debe volver a generar el archivo **swagger_output.json** con el siguiente comando
+```sh
+npm run swagger-autogen
+```
