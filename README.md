@@ -203,3 +203,11 @@ y explicitar el uso de las **rutas** de los endpoints de productos
 ```js
 app.use(productoRoutes)
 ```
+
+# Version 4
+
+- Crear el directorio **controllers** en la raiz del proyecto
+- Dentro del directorio **controllers** crear el archivo **producto.controller.js** 
+- Abstraer el comportamiento definido en el archivo **producto.routes.js** en un nuevo archivo **producto.controller.js** 
+- El objetivo detras de esto es la separacion de responsabilidades del router. Anteriormente el router era responsable de aceptar las peticiones HTTP y procesarlas. Ahora el router unicamente será encargado de aceptar las peticiones HTTP y el procesamiento se delegará en el controller
+- Desplazar el procesamiento del request HTTP a un nuevo método en el controller, y dicho método se debe llamar desde el router con la ruta correspondiente (ver cambios en los archivos **producto.routes.js** y **producto.controller.js**)
