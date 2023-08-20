@@ -1,11 +1,12 @@
-const express = require('express')
-var morgan = require('morgan')
+import express, { json } from 'express'
+import morgan from 'morgan'
+
 require('dotenv').config()
 
 const port = process.env.PORT || 3000
 const app = express()
 
-app.use(express.json())
+app.use(json())
 app.use(morgan('dev'))
 
 let productos = [

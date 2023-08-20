@@ -1,4 +1,4 @@
-# Pedidos
+# Version 1
 
 ## Creacion del proyecto
 
@@ -104,3 +104,55 @@ node app.js
     - El metodo HTTP a utilizar puede ser un GET, POST, PUT o DELETE (son los que usaremos)
     - Si el metodo HTTP es un POST o PUT se debe configurar el **body** del request, en la parte inferior a la URL del request hay pestañas se debe seleccionar **body** y en la parte inferior se debe colocar el json correspondiente que se desea enviar a la aplicacion
     - Por ultimo pulsar el boton **Send** y analizar el resultado del request a la derecha de la pantalla
+
+# Version 2
+
+## Instalar babel.js
+
+Instalar las siguientes dependencias
+```
+npm i -D @babel/cli @babel/core @babel/node @babel/preset-env
+```
+
+## Configuracion package.json
+
+Agregar en archivo **package.json** en la seccion **script** comando **dev**
+```json
+"scripts": {
+    "start": "node app.js",
+    "dev": "nodemon ./ --exec babel-node"
+  },
+```
+
+## Configuracion **app.js**
+
+- Modificar la notacion de importacion de bibliotecas
+
+```js
+//importa dependencia de la biblioteca express
+import express, { json } from 'express'
+
+//crea la aplicacion 
+const app = express()
+
+//lee el body en formato json
+app.use(json())
+```
+
+## Configuracion Babel
+
+- Crear el archivo **.babelrc** con el contenido
+```json
+{
+    "presets": [
+        "@babel/preset-env"
+    ]
+}
+```
+
+## Ejecucion de proyecto 
+
+Para ejecutar el proyecto de ahora en mas se debe usar el siguiente comando
+```
+npm run dev
+```
