@@ -17,17 +17,43 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productoid": {
+                  "example": "any"
+                },
+                "proveedorid": {
+                  "example": "any"
+                },
+                "categoriaid": {
+                  "example": "any"
+                },
+                "descripcion": {
+                  "example": "any"
+                },
+                "preciounit": {
+                  "example": "any"
+                },
+                "existencia": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -62,9 +88,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
