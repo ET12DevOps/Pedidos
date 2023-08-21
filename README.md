@@ -277,7 +277,7 @@ const pool = new Pool({
 
 export default pool
 ```
-- Actualizar el archivo **.env**
+- Actualizar el archivo **.env** con las credenciales reales de la base de datos
 ```
 ...
 HOST_POSTGRES='192.168.5.156'
@@ -291,7 +291,7 @@ PASSWORD_POSTGRES='telesca1234'
 ```js
 import pool from '../postgres.configuration'
 ```
-- Por cada metodo especificado en cada controller se debe modificar el codigo para que realice la accion necesaria contra la base de datos, por ejempleo para el metodo HTTP GET se debe traer todos los elementos de la tabla **Producto**
+- Por cada metodo especificado en cada controller se debe modificar el codigo para que realice la accion necesaria contra la base de datos, por ejemplo para el metodo HTTP GET se debe traer todos los elementos de la tabla **Producto**
 ```js
 pool.query('SELECT * FROM producto ORDER BY productoId ASC', (error, results) => {
         if (error) {
