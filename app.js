@@ -6,6 +6,8 @@ import morgan from 'morgan'
 require('dotenv').config()
 //importar el archivo usuarioRoutes del archivo producto.routes.js
 import productoRoutes from './routes/producto.routes'
+import categoriaRoutes from './routes/categoria.routes'
+import proveedorRoutes from './routes/proveedor.routes'
 
 //configuracion de swagger
 const swaggerUi = require('swagger-ui-express')
@@ -25,6 +27,9 @@ app.use(morgan('dev'))
 
 //endpoints
 app.use(productoRoutes)
+app.use(proveedorRoutes)
+app.use(categoriaRoutes)
+
 //endpoint para documentacion swagger
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
