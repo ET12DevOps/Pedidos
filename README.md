@@ -251,3 +251,53 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 ```sh
 npm run swagger-autogen
 ```
+
+# Version 6
+
+## Instalacion y configuracion de **node-postgres**
+- Ejecutar el comando 
+```sh
+npm install pg
+```
+- Crear el archivo de configuracion de postgres en la raiz del proyecto con el nombre **postgres.configuration.js** con el contenido
+```js
+import { Pool } from 'pg'
+require('dotenv').config()
+
+//aqui se detalle las credenciales necesarias para conectarse a la base de datos postgres
+//los valores se leen desde el archivo .env (variables de entorno) se guardan en el objeto "pool" 
+//el cual esta accesible desde cualquier archivo del proyecto, en particular desde los controllers
+const pool = new Pool({
+  user: process.env.USER_POSTGRES,
+  host: process.env.HOST_POSTGRES,
+  database: process.env.DATABASE_POSTGRES,
+  password: process.env.PASSWORD_POSTGRES,
+  port: process.env.PORT_POSTGRES,
+})
+
+export default pool
+```
+- Actualizar el archivo **.env**
+```
+...
+HOST_POSTGRES='192.168.5.156'
+PORT_POSTGRES=5432
+DATABASE_POSTGRES='pedidos'
+USER_POSTGRES='postgres'
+PASSWORD_POSTGRES='telesca1234'
+```
+## Refactorizar los controllers
+- En cada controller se debe importar el objeto **pool** para que la aplicacion acceda a la base de datos de postgres
+```js
+import pool from '../postgres.configuration'
+```
+- Por cada metodo especificado en cada controller se debe modificar el codigo para que realice la accion necesaria contra la base de datos, por ejempleo para el metodo HTTP GET se debe traer todos los elementos de la tabla **Producto**
+```js
+pool.query('SELECT * FROM producto ORDER BY productoId ASC', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+```
